@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { AuthService } from '../../services/auth.service';
 import { DataService } from '../../services/data.service';
 import { UserService } from '../../services/user.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,8 @@ export class LoginPage implements OnInit {
   loginForm: FormGroup;
   submitted = false;
   errMessage;
+  mailConfirmErr;
+  mailConfirmed = false;
 
   constructor(
     private navCtrl: NavController,
@@ -25,7 +28,8 @@ export class LoginPage implements OnInit {
     private dataService: DataService,
     private userService: UserService,
     private loadingCtrl: LoadingController,
-    private zone: NgZone
+    private zone: NgZone,
+    private route: ActivatedRoute
   ) {
     this.loginForm = this.fb.group({
       username: new FormControl('', [
@@ -44,6 +48,15 @@ export class LoginPage implements OnInit {
     this.authService.reauthenticate().then((res) => {
       this.navCtrl.navigateRoot('/home/tab-1');
     }, (err) => {
+    });
+    // get query Params for confirm email
+    this.route.queryParams.subscribe(params => {
+      if (params.success) {
+        this.mailConfirmed = true;
+      } else {
+        this.mailConfirmErr = params.error
+      }
+      console.log(params);
     });
   }
 

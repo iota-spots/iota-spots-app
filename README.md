@@ -17,7 +17,8 @@ Install the client dependencies by `cd client` and running `npm install`. To ins
 
 Put a .env file into the root of the server folder
 ```
-DOMAIN=
+BASEURL=
+NESTURL=
 COUCHDB_HOST=
 COUCHDB_PORT=
 COUCHDB_USR=

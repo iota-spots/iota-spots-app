@@ -12,6 +12,7 @@ export class SuperloginModule {
                 options.dbServer.host = process.env.COUCHDB_HOST + ':' + process.env.COUCHDB_PORT;
                 options.dbServer.user = process.env.COUCHDB_USR;
                 options.dbServer.password = process.env.COUCHDB_PW;
+                options.local.confirmEmailRedirectURL = process.env.BASEURL;
                 options.mailer.options.auth.user = process.env.MAILER_USR;
                 options.mailer.options.auth.pass = process.env.MAILER_PW;
                 return new SuperLogin(options);

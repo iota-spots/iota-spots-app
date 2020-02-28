@@ -19,7 +19,7 @@ export const superloginConfig = {
     local: {
         sendConfirmEmail: true,
         requireEmailConfirm: true,
-        confirmEmailRedirectURL: 'http://localhost:8100/signup-verification',
+        confirmEmailRedirectURL: process.env.BASEURL,
       },
     mailer: {
         fromEmail: 'noreply@offline-first.com',

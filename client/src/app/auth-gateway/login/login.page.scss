@@ -63,6 +63,19 @@ ion-item {
   }
 }
 
+.mailConfirmMsg {
+  color: var(--ion-color-tertiary);
+  text-align: center;
+  font-size: 20px;
+}
+
+.mailConfirmMsg ion-icon {
+  position: relative;
+  top: 3px;
+  bottom: 3px;
+  margin-right: 5px;
+}
+
 .fadeInWarn {
   animation-name: fadeIn;
   animation-duration: 1s;
