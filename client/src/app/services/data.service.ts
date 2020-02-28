@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import * as PouchDB from 'pouchdb/dist/pouchdb';
-import { UserService } from './user.service';
 
 @Injectable({
     providedIn: 'root'
@@ -11,9 +10,7 @@ export class DataService {
     private remoteAddress = [];
     private remoteName = [];
 
-    constructor(
-        private userService: UserService,
-    ) { }
+    constructor() { }
 
     initDatabase(remote): void {
         this.remoteAddress = Object.values(remote.userDBs);

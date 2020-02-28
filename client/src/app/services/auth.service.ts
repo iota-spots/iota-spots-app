@@ -62,6 +62,14 @@ export class AuthService {
     return this.http.post(SERVER_ADDRESS + 'auth/password-reset', details);
   }
 
+  changeEmail(details) {
+    return this.http.post(SERVER_ADDRESS + 'auth/change-email', details);
+  }
+
+  changePassword(details) {
+    return this.http.post(SERVER_ADDRESS + 'auth/password-change', details);
+  }
+
   reauthenticate() {
     return new Promise((resolve, reject) => {
       if (this.dataService.dbs === null) {
