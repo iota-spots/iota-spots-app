@@ -5,7 +5,7 @@
         <ion-icon name="cloud-offline"></ion-icon><br>Offline First Template
       </h1>
 
-      <form *ngIf="!success" [formGroup]="resetPwdForm" id="resetPwdForm" onsubmit="resetPwd()">
+      <form *ngIf="!success" [formGroup]="resetPwdForm" id="resetPwdForm" (keyup.enter)="resetPwd()">
         <ion-item class="ion-no-padding standard-bg">
           <ion-input type="password" formControlName="password" placeholder="Password"></ion-input>
           <ion-icon color="medium" slot="end" name="key-outline"></ion-icon>

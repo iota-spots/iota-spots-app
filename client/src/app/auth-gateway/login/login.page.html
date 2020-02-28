@@ -14,7 +14,7 @@
             </p>
 
 
-            <form [formGroup]="loginForm" id="loginForm" onsubmit="login()">
+            <form [formGroup]="loginForm" id="loginForm" (keyup.enter)="login()">
                 <ion-item class="ion-no-padding standard-bg">
                     <ion-input type="text" formControlName="username" placeholder="Username"></ion-input>
                     <ion-icon color="medium" slot="end" name="person-outline"></ion-icon>
@@ -31,8 +31,7 @@
                     Please enter your password
                 </ion-note>
 
-                <ion-button expand="block" color="primary" fill="solid" class="ion-margin-top" type="submit"
-                    (click)="login()">
+                <ion-button expand="block" color="primary" fill="solid" class="ion-margin-top" type="submit">
                     Log In
                 </ion-button>
                 <ion-note *ngIf="errMessage" class="fadeInWarn" color="tertiary">
@@ -42,7 +41,8 @@
 
             <hr class="hr-text" data-content="New here?" />
 
-            <ion-button color="secondary" expand="block" fill="outline" type="button" [routerLink]="['/register']" routerDirection="back">
+            <ion-button color="secondary" expand="block" fill="outline" type="button" [routerLink]="['/register']"
+                routerDirection="back">
                 Create an Account
             </ion-button>
 

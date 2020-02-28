@@ -56,7 +56,6 @@ export class LoginPage implements OnInit {
       } else {
         this.mailConfirmErr = params.error
       }
-      console.log(params);
     });
   }
 
