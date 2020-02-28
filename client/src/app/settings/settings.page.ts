@@ -174,13 +174,12 @@ export class SettingsPage implements OnInit {
   }
 
   changePw(data) {
-    console.log(data)
     if (!data.currentPassword || !data.newPassword || !data.confirmPassword) {
       this.chngMsg = '<div class="errChngCredMsg"><ion-icon name="warning-outline"></ion-icon><br>Please fill out all fields</div>';
       this.presentChngPromptResult();
     } else if (data.confirmPassword === data.newPassword) {
       this.authService.changePassword(data).subscribe((res: any) => {
-        if (res.ok) {
+        if (res.success) {
           this.chngMsg = '<div class="sucChngCredMsg"><ion-icon name="thumbs-up-outline"></ion-icon><br>Password has been changed</div>';
           this.presentChngPromptResult();
           this.chngPwPrompt.dismiss();

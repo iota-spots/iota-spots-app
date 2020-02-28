@@ -10,7 +10,7 @@
             </p>
 
             <p *ngIf="mailConfirmed" class="mailConfirmMsg">
-                <ion-icon name="checkmark-done-circle-outline"></ion-icon>E-mail confirmed
+                <ion-icon name="thumbs-up-outline"></ion-icon>E-mail confirmed
             </p>
 
 
@@ -31,7 +31,7 @@
                     Please enter your password
                 </ion-note>
 
-                <ion-button expand="block" color="primary" fill="solid" class="ion-margin-top" type="submit">
+                <ion-button expand="block" color="primary" fill="solid" class="ion-margin-top" type="submit" (click)="login()">
                     Log In
                 </ion-button>
                 <ion-note *ngIf="errMessage" class="fadeInWarn" color="tertiary">
