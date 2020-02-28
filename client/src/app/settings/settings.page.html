@@ -1,7 +1,7 @@
 <ion-header translucent="true">
   <ion-toolbar>
     <ion-buttons slot="secondary" collapse="true">
-      <ion-back-button defaultHref="/login"></ion-back-button>
+      <ion-back-button defaultHref="/home/tab-1"></ion-back-button>
     </ion-buttons>
     <ion-title>Settings</ion-title>
   </ion-toolbar>
@@ -56,10 +56,16 @@
         <h2>Change E-mail</h2>
       </ion-label>
     </ion-item>
-    <ion-item [button]="true" (click)="presentChngEmailPrompt()">
+    <ion-item [button]="true" (click)="presentChngPwPrompt()">
       <ion-icon slot="start" name="key-outline"></ion-icon>
       <ion-label>
         <h2>Change password</h2>
+      </ion-label>
+    </ion-item>
+    <ion-item [button]="true" (click)="presentDelAccPrompt()">
+      <ion-icon slot="start" name="trash-outline"></ion-icon>
+      <ion-label>
+        <h2>Delete Account</h2>
       </ion-label>
     </ion-item>
   </ion-list>

@@ -15,6 +15,8 @@ export class SettingsPage implements OnInit {
   darkMode = false;
   selectedSegment = 'profile';
   chngEmailPrompt;
+  chngPwPrompt;
+  delAccPrompt;
   chngMsg;
   user;
 
@@ -37,7 +39,6 @@ export class SettingsPage implements OnInit {
       this.loading.present();
       this.authService.reauthenticate().then((res) => {
         this.user = this.userService.currentUser;
-        console.log(this.user)
         this.loading.dismiss();
       }, (err) => {
         this.loading.dismiss();
@@ -92,11 +93,25 @@ export class SettingsPage implements OnInit {
     await this.chngEmailPrompt.present();
   }
 
-  async presentChngPromptResult() {
-    const alert = await this.alertController.create({
+  async presentChngPwPrompt() {
+    this.chngPwPrompt = await this.alertController.create({
       translucent: true,
-      header: 'Changing user credentials...',
-      message: this.chngMsg,
+      header: 'Change password',
+      inputs: [
+        {
+          name: 'currentPassword',
+          type: 'password',
+          placeholder: 'Current password'
+        }, {
+          name: 'newPassword',
+          type: 'password',
+          placeholder: 'New password'
+        }, {
+          name: 'confirmPassword',
+          type: 'password',
+          placeholder: 'Confirm new password'
+        },
+      ],
       buttons: [
         {
           text: 'Cancel',
@@ -106,6 +121,25 @@ export class SettingsPage implements OnInit {
             // console.log('Confirm Cancel');
           }
         }, {
+          text: 'Ok',
+          handler: data => {
+            this.changePw(data)
+            return false;
+          }
+        }
+      ]
+    });
+
+    await this.chngPwPrompt.present();
+  }
+
+  async presentChngPromptResult() {
+    const alert = await this.alertController.create({
+      translucent: true,
+      header: 'Changing user credentials...',
+      message: this.chngMsg,
+      buttons: [
+        {
           text: 'Ok',
           handler: () => {
           }
@@ -119,18 +153,47 @@ export class SettingsPage implements OnInit {
   changeEmail(data) {
     this.authService.validateEmail(data.newEmail).subscribe((res: any) => {
       if (res.ok) {
-        this.chngMsg = '<span class="sucChngCredMsg"><br><br>Verification E-mail has been sent to "' + data.newEmail + '"<br><br></span>';
-        this.presentChngPromptResult();
-        this.chngEmailPrompt.dismiss();
+        this.authService.changeEmail(data.newEmail).subscribe((res: any) => {
+          if (res.ok) {
+            this.chngMsg = '<div class="sucChngCredMsg"><ion-icon name="thumbs-up-outline"></ion-icon><br>Verification E-mail has been sent to ' + data.newEmail + '</div>';
+            this.presentChngPromptResult();
+            this.chngEmailPrompt.dismiss();
+          }
+        }, (err) => {
+          console.log(err);
+        });
       }
     }, (err) => {
       if (data.newEmail) {
-        this.chngMsg = '<span class="errChngCredMsg"><br><br>You can not use "' + data.newEmail + '"<br><br></span>';
+        this.chngMsg = '<div class="errChngCredMsg"><ion-icon name="warning-outline"></ion-icon><br>You can not use ' + data.newEmail + '</div>';
       } else {
-        this.chngMsg = '<span class="errChngCredMsg"><br><br>Please enter an E-mail address<br><br></span>';
+        this.chngMsg = '<div class="errChngCredMsg"><ion-icon name="warning-outline"></ion-icon><br>Please enter an E-mail address</div>';
       }
       this.presentChngPromptResult();
     });
+  }
+
+  changePw(data) {
+    console.log(data)
+    if (!data.currentPassword || !data.newPassword || !data.confirmPassword) {
+      this.chngMsg = '<div class="errChngCredMsg"><ion-icon name="warning-outline"></ion-icon><br>Please fill out all fields</div>';
+      this.presentChngPromptResult();
+    } else if (data.confirmPassword === data.newPassword) {
+      this.authService.changePassword(data).subscribe((res: any) => {
+        if (res.ok) {
+          this.chngMsg = '<div class="sucChngCredMsg"><ion-icon name="thumbs-up-outline"></ion-icon><br>Password has been changed</div>';
+          this.presentChngPromptResult();
+          this.chngPwPrompt.dismiss();
+        }
+      }, (err) => {
+        this.chngMsg = '<div class="errChngCredMsg"><ion-icon name="warning-outline"></ion-icon><br>The current password you supplied is incorrect</div>';
+        this.presentChngPromptResult();
+        // console.log(err);
+      });
+    } else if (data.confirmPassword !== data.newPassword) {
+      this.chngMsg = '<div class="errChngCredMsg"><ion-icon name="warning-outline"></ion-icon><br>New password and confirm password do not match</div>';
+      this.presentChngPromptResult();
+    };
   }
 
 }

@@ -23,10 +23,11 @@ export class AuthService {
   }
 
   logout() {
-    const headers = new HttpHeaders();
-    headers.append('Authorization', 'Bearer ' + this.userService.currentUser.token + ':' + this.userService.currentUser.password);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.userService.currentUser.token + ':' + this.userService.currentUser.password
+    });
     this.http.post(SERVER_ADDRESS + 'auth/logout', {}, { headers }).subscribe((res) => { });
-
     // tslint:disable-next-line: forin
     for (const db in this.dataService.dbs) {
       this.dataService.dbs[db].destroy().then((res) => {
@@ -62,12 +63,20 @@ export class AuthService {
     return this.http.post(SERVER_ADDRESS + 'auth/password-reset', details);
   }
 
-  changeEmail(details) {
-    return this.http.post(SERVER_ADDRESS + 'auth/change-email', details);
+  changeEmail(newEmail) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.userService.currentUser.token + ':' + this.userService.currentUser.password
+    });
+    return this.http.post(SERVER_ADDRESS + 'auth/change-email', { newEmail }, { headers });
   }
 
   changePassword(details) {
-    return this.http.post(SERVER_ADDRESS + 'auth/password-change', details);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.userService.currentUser.token + ':' + this.userService.currentUser.password
+    });
+    return this.http.post(SERVER_ADDRESS + 'auth/password-change', { currentPassword: details.currentPassword, newPassword: details.newPassword, confirmPassword: details.confirmPassword }, { headers });
   }
 
   reauthenticate() {

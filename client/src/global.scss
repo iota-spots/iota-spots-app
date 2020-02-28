@@ -38,6 +38,11 @@
   padding-bottom: 40px;
   color: var(--ion-color-success);
   font-size: 16px;
+  text-align: center;
+}
+
+.sucChngCredMsg ion-icon {
+  font-size: 125px;
 }
 
 .errChngCredMsg {
@@ -45,4 +50,9 @@
   padding-bottom: 40px;
   color: var(--ion-color-danger);
   font-size: 16px;
+  text-align: center;
+}
+
+.errChngCredMsg ion-icon {
+  font-size: 125px;
 }
