@@ -27,13 +27,13 @@ export const signupHandler = async (userDoc, provider) => {
         console.log(err);
     });
 
-    // add admin role to admin user doc
-    if (userDoc.role === 'admin') {
-        let adminUserDoc;
+    // add role to user doc
+    if (userDoc.role != 'user') {
+        let userRoleDoc;
         users.get(privateDB.match(regex)[1]).then((body) => {
-            adminUserDoc = body;
-            adminUserDoc.roles.splice(0, 1, 'admin');
-            users.insert(adminUserDoc).then(
+            userRoleDoc = body;
+            userRoleDoc.roles.splice(0, 1, userDoc.role);
+            users.insert(userRoleDoc).then(
                 result => {
                     // console.log(result);
                 },
@@ -59,13 +59,13 @@ export const signupHandler = async (userDoc, provider) => {
         console.log(err);
     });
 
-    // fetch regular users
-    let regularUsers = [];
-    await users.view('userDoc', 'regular_users', {
+    // fetch non admin users
+    let nonAdminUsers = [];
+    await users.view('userDoc', 'non_admin_users', {
         'include_docs': true
     }).then((body) => {
         body.rows.forEach((doc) => {
-            regularUsers.push(doc.id);
+            nonAdminUsers.push(doc.id);
         })
     }).catch((err) => {
         console.log(err);
@@ -85,7 +85,7 @@ export const signupHandler = async (userDoc, provider) => {
     };
 
     if (userDoc.role === 'admin') {
-        regularUsers.forEach((user) => {
+        nonAdminUsers.forEach((user) => {
             // opts for admin to replication
             const optsAdminToUserRep = {
                 continuous: true,

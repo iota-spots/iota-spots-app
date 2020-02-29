@@ -1,6 +1,4 @@
 import { Module, Inject, MiddlewareConsumer } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 
 import { dbSetup } from './db-setup';
@@ -16,8 +14,8 @@ import { UserController } from './user/user.controller';
     }),
     SuperloginModule.forRoot(superloginConfig),
   ],
-  controllers: [AppController, UserController],
-  providers: [AppService],
+  controllers: [UserController],
+  providers: [],
 })
 export class AppModule {
 

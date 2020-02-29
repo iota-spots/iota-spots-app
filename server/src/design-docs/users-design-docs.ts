@@ -6,8 +6,8 @@ export const usersDesignDocuments = [
             admin_users: {
                 map: "function(doc){ if(doc.type == 'user' && doc.role == 'admin'){emit(doc);} }"
             },
-            regular_users: {
-                map: "function(doc){ if(doc.type == 'user' && doc.role == 'user'){emit(doc);} }"
+            non_admin_users: {
+                map: "function(doc){ if(doc.type == 'user' && doc.role != 'admin'){emit(doc);} }"
             },
             all_users: {
                 map: "function(doc){ if(doc.type == 'user'){emit(doc);} }"
