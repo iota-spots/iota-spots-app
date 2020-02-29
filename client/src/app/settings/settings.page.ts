@@ -40,10 +40,18 @@ export class SettingsPage implements OnInit {
       this.authService.reauthenticate().then((res) => {
         this.user = this.userService.currentUser;
         this.loading.dismiss();
+        console.log(this.user);
       }, (err) => {
         this.loading.dismiss();
         this.navCtrl.navigateRoot('/login');
       });
+    });
+    this.getEmail();
+  }
+
+  getEmail() {
+    this.authService.getEmail().subscribe((res: any) => {
+      console.log(res)
     });
   }
 

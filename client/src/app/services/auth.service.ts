@@ -79,6 +79,14 @@ export class AuthService {
     return this.http.post(SERVER_ADDRESS + 'auth/password-change', { currentPassword: details.currentPassword, newPassword: details.newPassword, confirmPassword: details.confirmPassword }, { headers });
   }
 
+  getEmail() {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.userService.currentUser.token + ':' + this.userService.currentUser.password
+    });
+    return this.http.get(SERVER_ADDRESS + 'user/info', { headers });
+  }
+
   reauthenticate() {
     return new Promise((resolve, reject) => {
       if (this.dataService.dbs === null) {
