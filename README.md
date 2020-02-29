@@ -3,10 +3,10 @@ This project is a template to build an offline first web application with authen
 
 <img src="https://git.heichling.xyz/max/cain-stack/raw/branch/master/cain_stack_slaying_zend.jpg" width="230" alt="CAIN Stack slaying Zend" style="float: right">
 
-* [**C**ouchDB](https://couchdb.apache.org/) as remote server database / [PouchDB](https://pouchdb.com/) as local database
-* [**A**ngular](https://angular.io/) as frontend framework
-* [**I**onic](https://ionicframework.com/) for cross platform components and [capacitor](https://capacitor.ionicframework.com/) as wrapper
-* [**N**estJS](https://nestjs.com/) as backend framework
+[**C**ouchDB](https://couchdb.apache.org/) as remote server database / [PouchDB](https://pouchdb.com/) as local database
+[**A**ngular](https://angular.io/) as frontend framework
+[**I**onic](https://ionicframework.com/) for cross platform components and [capacitor](https://capacitor.ionicframework.com/) as wrapper
+[**N**estJS](https://nestjs.com/) as backend framework
 
 ## Features
 
