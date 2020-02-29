@@ -92,9 +92,15 @@ export class AuthService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.userService.currentUser.token + ':' + this.userService.currentUser.password
     });
-    this.http.get(SERVER_ADDRESS + 'user/delete/' + id, { headers }).subscribe((res) => {
-      this.logout();
+    return this.http.get(SERVER_ADDRESS + 'user/delete/' + id, { headers });
+  }
+
+  editUser(newDetails) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.userService.currentUser.token + ':' + this.userService.currentUser.password
     });
+    return this.http.post(SERVER_ADDRESS + 'user/admin/edit', newDetails, { headers });
   }
 
   getUserList() {
@@ -102,7 +108,7 @@ export class AuthService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.userService.currentUser.token + ':' + this.userService.currentUser.password
     });
-    return this.http.get(SERVER_ADDRESS + 'user/list/', { headers });
+    return this.http.get(SERVER_ADDRESS + 'user/admin/list/', { headers });
   }
 
   reauthenticate() {

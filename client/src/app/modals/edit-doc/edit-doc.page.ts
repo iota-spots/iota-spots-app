@@ -73,7 +73,7 @@ export class EditDocPage implements OnInit {
   // save to Database
   saveForm() {
     this.submitted = true;
-    if (!this.form.invalid) {
+    if (this.form.valid) {
       const form = this.form.value;
       const iso = this.getDateISOString();
       if (this.db === 'private') {

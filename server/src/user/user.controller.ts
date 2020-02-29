@@ -1,4 +1,5 @@
-import { Controller, Get, Req, Inject, UseGuards, Param } from '@nestjs/common';
+import { Controller, Get, Req, Inject, UseGuards, Param, Post, Body, Res, HttpStatus } from '@nestjs/common';
+import { Response } from 'express';
 import * as nano from 'nano';
 
 
@@ -22,7 +23,7 @@ export class UserController {
         return this.superlogin.removeUser(id.id, true);
     }
 
-    @Get('list')
+    @Get('admin/list')
     async listUser() {
         let users = [];
         await this.users.view('userDoc', 'all_users', {
@@ -36,6 +37,25 @@ export class UserController {
             return err;
         });
         return users;
+    }
+
+    @Post('admin/edit')
+    editUser(@Body() newDetails, @Res() res: Response) {
+        this.users.get(newDetails.user_id).then((body) => {
+            let userDoc = body;
+            userDoc.roles.splice(0, 1, newDetails.role);
+            userDoc.email = newDetails.email;
+            this.users.insert(userDoc).then(
+                result => {
+                    res.send(result);
+                },
+                err => {
+                    res.send(err.message);
+                }
+            );
+        }).catch((err) => {
+            res.send(err);
+        });
     }
 
 }

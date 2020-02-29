@@ -1,0 +1,55 @@
+<ion-header>
+
+  <ion-toolbar color="primary">
+
+    <ion-title>{{modalTitel}}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button class="close-modal-button" (click)="close()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content fullscreen class="ion-padding">
+  <ion-item>
+    <ion-label position="stacked">Signed up</ion-label>
+    {{user.signUp.timestamp | date:'yyyy-mm-dd H:mm:ss'}}
+  </ion-item>
+  <form [formGroup]="form" id="form" (keyup.enter)="saveForm()">
+    <ion-item [ngClass]="{error_warn : hasFormError('email')}">
+      <ion-label position="stacked">E-mail</ion-label>
+      <ion-input type="text" formControlName="email" placeholder="E-mail"></ion-input>
+    </ion-item>
+    <ion-note *ngIf="hasFormError('email')" class="fadeIn" color="danger">
+      Please fill out this field
+    </ion-note>
+
+    <ion-item>
+      <ion-label position="stacked">Role</ion-label>
+      <ion-select formControlName="role" [value]="user.role" placeholder="Userrole">
+        <ion-select-option value="user">User</ion-select-option>
+        <ion-select-option value="admin">Admin</ion-select-option>
+      </ion-select>
+      <ion-note *ngIf="hasFormError('role')" class="fadeIn" color="danger">
+        Please fill out this field
+      </ion-note>
+    </ion-item>
+
+    <p *ngIf="submitMsg" class="submitMsg fadeIn">
+      {{submitMsg}}
+    </p>
+
+    <ion-button expand="block" type="submit" (click)="saveUser()" class="ion-margin-top">
+      <ion-icon name="save-outline" slot="start"></ion-icon>
+      Save {{user._id}}
+    </ion-button>
+
+    <ion-button expand="block" color="danger" fill="outline" (click)="deleteUser()" class="ion-margin-top">
+      <ion-icon name="trash-outline" slot="start"></ion-icon>
+      Delete {{user._id}}
+    </ion-button>
+  </form>
+</ion-content>

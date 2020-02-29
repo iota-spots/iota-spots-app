@@ -1,8 +1,9 @@
+import { LoadingController, NavController, AlertController, ToastController, ModalController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { ThemeService } from '../services/theme.service';
-import { LoadingController, NavController, AlertController, ToastController } from '@ionic/angular';
+import { EditUserPage } from '../modals/edit-user/edit-user.page';
 import { Plugins } from '@capacitor/core';
 
 const { Network } = Plugins;
@@ -34,10 +35,11 @@ export class SettingsPage implements OnInit {
     private navCtrl: NavController,
     private theme: ThemeService,
     public alertController: AlertController,
-    public toastController: ToastController
+    public toastController: ToastController,
+    private modalController: ModalController
   ) {
   }
-  
+
   ngOnInit() {
     this.darkMode = this.theme.darkMode;
     this.loadingCtrl.create({
@@ -100,6 +102,24 @@ export class SettingsPage implements OnInit {
         this.userList = res;
       });
     }
+  }
+
+  async openModal(user?) {
+    const modal = await this.modalController.create({
+      component: EditUserPage,
+      swipeToClose: true,
+      componentProps: {
+        'user': user,
+      }
+    }).then((modal) => {
+      modal.present();
+      modal.onWillDismiss().then(() => {
+        this.authService.getUserList().subscribe((res: any) => {
+          this.userList = res;
+        });
+        this.getUserInfo();
+      });
+    });
   }
 
   toggleDarkMode() {
@@ -216,6 +236,7 @@ export class SettingsPage implements OnInit {
           text: 'Ok',
           handler: data => {
             this.authService.delAcc(this.user.user_id);
+            this.authService.logout();
           }
         }
       ]

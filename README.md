@@ -1,16 +1,16 @@
 ## About
 This project is a template to build an offline first web application with authentication, that can be ported easily to other platforms (Android, iOS, Electron). It runs on the **CAIN Stack** which consists of following technologies:
-- **C**ouchDB as remote server database /PouchDB as local database
-- **A**ngular as frontend framework
-- **I**onic for cross platform components
-- **N**estJS as backend framework
+- [**C**ouchDB](https://couchdb.apache.org/) as remote server database / [PouchDB](https://pouchdb.com/) as local database
+- [**A**ngular](https://angular.io/) as frontend framework
+- [**I**onic](https://ionicframework.com/) for cross platform components and [capacitor](https://capacitor.ionicframework.com/) as wrapper
+- [**N**estJS](https://nestjs.com/) as backend framework
 
 ## Features
 - Complete User authentication with confirm mail, password forget, user roles and more
 - Admin Panel for editing users
 - Private and shared database (admins can edit every document in every database)
 - Fully functional offline and syncing enabled by default
-- Native Apis like calling network state (more can be easily added with capacitor)
+- Native Apis like calling network state (more can be easily added with [capacitor](https://capacitor.ionicframework.com/))
 - Cross Platform 
 
 ## Installation
