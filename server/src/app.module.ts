@@ -32,6 +32,6 @@ export class AppModule {
       .forRoutes('user');
     consumer
       .apply(this.superlogin.requireAuth, this.superlogin.requireRole('admin'))
-      .forRoutes('user/info');
+      .forRoutes('user/list');
   }
 }

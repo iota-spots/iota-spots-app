@@ -8,6 +8,9 @@ export const usersDesignDocuments = [
             },
             regular_users: {
                 map: "function(doc){ if(doc.type == 'user' && doc.role == 'user'){emit(doc);} }"
+            },
+            all_users: {
+                map: "function(doc){ if(doc.type == 'user'){emit(doc);} }"
             }
         }
     }

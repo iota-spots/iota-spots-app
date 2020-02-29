@@ -19,6 +19,8 @@ export class SettingsPage implements OnInit {
   delAccPrompt;
   chngMsg;
   user;
+  userEmail;
+  userList;
 
   constructor(
     private authService: AuthService,
@@ -40,23 +42,27 @@ export class SettingsPage implements OnInit {
       this.authService.reauthenticate().then((res) => {
         this.user = this.userService.currentUser;
         this.loading.dismiss();
-        console.log(this.user);
+        this.getUserInfo();
       }, (err) => {
         this.loading.dismiss();
         this.navCtrl.navigateRoot('/login');
       });
     });
-    this.getEmail();
   }
 
-  getEmail() {
-    this.authService.getEmail().subscribe((res: any) => {
-      console.log(res)
+  getUserInfo() {
+    this.authService.getUserInfo(this.user.user_id).subscribe((res: any) => {
+      this.userEmail = res.email;
     });
   }
 
   segmentChanged(ev: any) {
     this.selectedSegment = ev.detail.value;
+    if (ev.detail.value === 'admin' && this.user.roles[0] === 'admin') {
+      this.authService.getUserList().subscribe((res: any) => {
+        this.userList = res;
+      });
+    }
   }
 
   toggleDarkMode() {
@@ -141,6 +147,30 @@ export class SettingsPage implements OnInit {
     await this.chngPwPrompt.present();
   }
 
+  async presentDelAccPrompt() {
+    this.delAccPrompt = await this.alertController.create({
+      translucent: true,
+      header: 'Are you sure you want to delete your Account?',
+      subHeader: 'This process cannot be undone',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            // console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: data => {
+            this.authService.delAcc(this.user.user_id);
+          }
+        }
+      ]
+    });
+    await this.delAccPrompt.present();
+  }
+
   async presentChngPromptResult() {
     const alert = await this.alertController.create({
       translucent: true,
@@ -154,7 +184,6 @@ export class SettingsPage implements OnInit {
         }
       ]
     });
-
     await alert.present();
   }
 

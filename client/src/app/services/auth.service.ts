@@ -79,12 +79,30 @@ export class AuthService {
     return this.http.post(SERVER_ADDRESS + 'auth/password-change', { currentPassword: details.currentPassword, newPassword: details.newPassword, confirmPassword: details.confirmPassword }, { headers });
   }
 
-  getEmail() {
+  getUserInfo(id) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.userService.currentUser.token + ':' + this.userService.currentUser.password
     });
-    return this.http.get(SERVER_ADDRESS + 'user/info', { headers });
+    return this.http.get(SERVER_ADDRESS + 'user/info/' + id, { headers });
+  }
+
+  delAcc(id) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.userService.currentUser.token + ':' + this.userService.currentUser.password
+    });
+    this.http.get(SERVER_ADDRESS + 'user/delete/' + id, { headers }).subscribe((res) => {
+      this.logout();
+    });
+  }
+
+  getUserList() {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.userService.currentUser.token + ':' + this.userService.currentUser.password
+    });
+    return this.http.get(SERVER_ADDRESS + 'user/list/', { headers });
   }
 
   reauthenticate() {
