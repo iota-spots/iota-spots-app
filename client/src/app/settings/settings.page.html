@@ -76,9 +76,12 @@
         <img src="https://api.adorable.io/avatars/100/{{user._id}}">
       </ion-avatar>
       <ion-label>
-        <h2>{{user._id | titlecase}}</h2>
+        <h2><b>{{user._id | titlecase}}</b> - <span *ngFor="let role of user.roles">{{role}} </span></h2>
         <h3>{{user.email}}</h3>
       </ion-label>
+      <ion-button slot="end" fill="none">
+        <ion-icon name="create-outline" color="primary"></ion-icon>
+      </ion-button>
     </ion-item>
   </ion-list>
 </ion-content>

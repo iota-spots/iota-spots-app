@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { ThemeService } from '../services/theme.service';
-import { LoadingController, NavController, AlertController } from '@ionic/angular';
+import { LoadingController, NavController, AlertController, ToastController } from '@ionic/angular';
+import { Plugins } from '@capacitor/core';
+
+const { Network } = Plugins;
 
 @Component({
   selector: 'app-settings',
@@ -13,14 +16,16 @@ export class SettingsPage implements OnInit {
 
   public loading: any;
   darkMode = false;
+  networkStatus;
+  networkStateToast;
   selectedSegment = 'profile';
   chngEmailPrompt;
   chngPwPrompt;
   delAccPrompt;
   chngMsg;
-  user;
   userEmail;
   userList;
+  user;
 
   constructor(
     private authService: AuthService,
@@ -28,8 +33,13 @@ export class SettingsPage implements OnInit {
     private loadingCtrl: LoadingController,
     private navCtrl: NavController,
     private theme: ThemeService,
-    public alertController: AlertController
-  ) { }
+    public alertController: AlertController,
+    public toastController: ToastController
+  ) {
+    let handler = Network.addListener('networkStatusChange', (status) => {
+      console.log("Network status changed", status);
+    });
+  }
 
   ngOnInit() {
     this.darkMode = this.theme.darkMode;
@@ -48,12 +58,43 @@ export class SettingsPage implements OnInit {
         this.navCtrl.navigateRoot('/login');
       });
     });
+    this.getNetwork();
   }
 
   getUserInfo() {
     this.authService.getUserInfo(this.user.user_id).subscribe((res: any) => {
       this.userEmail = res.email;
     });
+  }
+
+  async getNetwork() {
+    this.networkStatus = await Network.getStatus();
+    if (!this.networkStatus.connected) {
+      this.presentNetworkToast();
+    }
+  }
+
+  async presentNetworkToast() {
+    this.networkStateToast = await this.toastController.create({
+      header: 'You can not edit your settings while you are offline',
+      duration: 3000,
+      position: 'bottom',
+      translucent: true,
+      buttons: [
+        {
+          side: 'start',
+          icon: 'warning-outline',
+          handler: () => {
+          }
+        }, {
+          text: 'Ok',
+          role: 'cancel',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    this.networkStateToast.present();
   }
 
   segmentChanged(ev: any) {
@@ -76,6 +117,11 @@ export class SettingsPage implements OnInit {
   }
 
   async presentChngEmailPrompt() {
+    if (!this.networkStatus.connected) {
+      this.networkStateToast.dismiss();
+      this.presentNetworkToast();
+      return;
+    }
     this.chngEmailPrompt = await this.alertController.create({
       translucent: true,
       header: 'Change E-mail address',
@@ -108,6 +154,11 @@ export class SettingsPage implements OnInit {
   }
 
   async presentChngPwPrompt() {
+    if (!this.networkStatus.connected) {
+      this.networkStateToast.dismiss();
+      this.presentNetworkToast();
+      return;
+    }
     this.chngPwPrompt = await this.alertController.create({
       translucent: true,
       header: 'Change password',
@@ -148,6 +199,11 @@ export class SettingsPage implements OnInit {
   }
 
   async presentDelAccPrompt() {
+    if (!this.networkStatus.connected) {
+      this.networkStateToast.dismiss();
+      this.presentNetworkToast();
+      return;
+    }
     this.delAccPrompt = await this.alertController.create({
       translucent: true,
       header: 'Are you sure you want to delete your Account?',
