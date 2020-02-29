@@ -1,7 +1,7 @@
 ## About
 This project is a template to build an offline first web application with authentication, that can be ported easily to other platforms (Android, iOS, Electron). It runs on the **CAIN Stack** which consists of following technologies:
 
-<img src="https://git.heichling.xyz/max/cain-stack/src/branch/master/cain_stack_slaying_zend.jpg" width="230" alt="CAIN Stack slaying Zend" style="float: right">
+<img src="https://git.heichling.xyz/max/cain-stack/raw/branch/master/cain_stack_slaying_zend.jpg" width="230" alt="CAIN Stack slaying Zend" style="float: right">
 
 * [**C**ouchDB](https://couchdb.apache.org/) as remote server database / [PouchDB](https://pouchdb.com/) as local database
 * [**A**ngular](https://angular.io/) as frontend framework
