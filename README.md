@@ -16,7 +16,7 @@ This project is a template to build an offline first web application with authen
 ## Installation
 Requirements: Installed Ionic Cli, NodeJS, NestJS and CouchDB locally. Disable the cors policy in couchdb and register an admin (credentials can be edited in the .env file, further below).
 
-Install the client dependencies by `cd client` and running `npm i`. Do the same in the server folder (`cd server` `npm i`). Start the client framework by running `ionic serve`, after adding the .env file into the `server` directory, the server can be started by running `nest start --watch`. 
+Install the client dependencies by `cd client` and running `npm i`. Do the same in the server folder (`cd server` `npm i`). Start the client framework by running `ionic serve`, after adding the .env file into the `server` directory, start the server by running `nest start --watch`. 
 
 ### .env
 Put a .env file into the root of the server folder
@@ -33,7 +33,7 @@ MAILER_PW=gmailaccountpassword
 ## Additional information
 
 ### db-setup.ts (`server/src/db-setup.ts`)
-The setup function automatically creates all necessary databases and design documents (can be found in `server/src/design-docs`). For developing it can be useful to purge all databases. Just uncomment the function and the beginning of the setup handler, save, comment again and save again.
+The setup function automatically creates all necessary databases and design documents (can be found in `server/src/design-docs`). For developing it can be useful to purge all databases. Just uncomment the function at the beginning of the setup handler, save, comment again and save again.
 
 ### superlogin-config (`server/src/config/superlogin-config.ts`)
 Authentication heavily relies on [superlogin](https://git.heichling.xyz/max/superlogin). Press the link to read the full documentation. Almost all main apis are included in this template.
