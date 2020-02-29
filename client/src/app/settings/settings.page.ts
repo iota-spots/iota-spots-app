@@ -36,11 +36,8 @@ export class SettingsPage implements OnInit {
     public alertController: AlertController,
     public toastController: ToastController
   ) {
-    let handler = Network.addListener('networkStatusChange', (status) => {
-      console.log("Network status changed", status);
-    });
   }
-
+  
   ngOnInit() {
     this.darkMode = this.theme.darkMode;
     this.loadingCtrl.create({
@@ -77,7 +74,6 @@ export class SettingsPage implements OnInit {
   async presentNetworkToast() {
     this.networkStateToast = await this.toastController.create({
       header: 'You can not edit your settings while you are offline',
-      duration: 3000,
       position: 'bottom',
       translucent: true,
       buttons: [
@@ -117,14 +113,15 @@ export class SettingsPage implements OnInit {
   }
 
   async presentChngEmailPrompt() {
+    await this.getNetwork()
     if (!this.networkStatus.connected) {
-      this.networkStateToast.dismiss();
-      this.presentNetworkToast();
       return;
     }
     this.chngEmailPrompt = await this.alertController.create({
       translucent: true,
       header: 'Change E-mail address',
+      subHeader: this.userEmail,
+      message: 'New E-mail address:',
       inputs: [
         {
           name: 'newEmail',
@@ -154,9 +151,8 @@ export class SettingsPage implements OnInit {
   }
 
   async presentChngPwPrompt() {
+    await this.getNetwork()
     if (!this.networkStatus.connected) {
-      this.networkStateToast.dismiss();
-      this.presentNetworkToast();
       return;
     }
     this.chngPwPrompt = await this.alertController.create({
@@ -199,9 +195,9 @@ export class SettingsPage implements OnInit {
   }
 
   async presentDelAccPrompt() {
+    this.networkStateToast.dismiss();
+    await !this.getNetwork()
     if (!this.networkStatus.connected) {
-      this.networkStateToast.dismiss();
-      this.presentNetworkToast();
       return;
     }
     this.delAccPrompt = await this.alertController.create({
