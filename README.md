@@ -1,4 +1,4 @@
-<img src="https://git.heichling.xyz/max/cain-stack/raw/branch/master/cain_stack_slaying_zend.jpg" width="370" alt="CAIN Stack slaying Zend" align="right">
+<img src="https://git.heichling.xyz/max/cain-stack/raw/branch/master/cain_stack_slaying_zend.jpg" width="420" alt="CAIN Stack slaying Zend" align="right">
 
 # CAIN stack template 
 
