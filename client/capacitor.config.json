@@ -1,6 +1,6 @@
 {
   "appId": "io.ionic.starter",
-  "appName": "offline-first-template",
+  "appName": "cain-stack-template",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",

@@ -22,7 +22,7 @@ export const superloginConfig = {
         confirmEmailRedirectURL: process.env.BASEURL,
       },
     mailer: {
-        fromEmail: 'noreply@offline-first.com',
+        fromEmail: 'noreply@mailbot.com',
         options: {
             service: 'Gmail',
             auth: {
