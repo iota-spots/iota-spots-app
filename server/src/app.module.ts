@@ -1,11 +1,11 @@
-import { Module, Inject, MiddlewareConsumer } from '@nestjs/common';
+import { Module, Inject } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
 import { dbSetup } from './db-setup';
 import { superloginConfig } from './config/superlogin-config';
 import { SuperloginModule } from './superlogin/superlogin-module';
 import { signupHandler } from './superlogin/signup-handler';
-import { UserController } from './user/user.controller';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -13,26 +13,15 @@ import { UserController } from './user/user.controller';
       isGlobal: true,
     }),
     SuperloginModule.forRoot(superloginConfig),
+    UserModule,
   ],
-  controllers: [UserController],
+  controllers: [],
   providers: [],
 })
-export class AppModule {
 
+export class AppModule {
   constructor(@Inject('superlogin') private superlogin: any) {
     this.superlogin.on('signup', signupHandler);
     dbSetup();
-  }
-
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(this.superlogin.requireAuth)
-      .forRoutes('user');
-    consumer
-      .apply(this.superlogin.requireAuth, this.superlogin.requireRole('admin'))
-      .forRoutes('user/admin/list');
-    consumer
-      .apply(this.superlogin.requireAuth, this.superlogin.requireRole('admin'))
-      .forRoutes('user/admin/edit');
   }
 }

@@ -8,7 +8,7 @@ This project is a template to build an offline first web application with authen
 * [**C**ouchDB](https://couchdb.apache.org/) as remote server database / [PouchDB](https://pouchdb.com/) as local database
 * [**A**ngular](https://angular.io/) as frontend framework
 * [**I**onic](https://ionicframework.com/) for cross platform components and [capacitor](https://capacitor.ionicframework.com/) as wrapper
-* [**N**estJS](https://nestjs.com/) as backend framework
+* [**N**estJS](https://nestjs.com/) as backend framework with [Nano](https://github.com/apache/couchdb-nano) for business logic and [superlogin](https://git.heichling.xyz/max/superlogin) for authentication
 
 
 ## Features
@@ -52,7 +52,7 @@ Authentication heavily relies on [superlogin](https://git.heichling.xyz/max/supe
 
 ### User roles
 
-User roles can be defined and will be automatically added to the user doc (see `server/src/superlogin/signup-handler.ts` on line 30). By default users with the `admin` role will have access to all documents. Routes can be guarded by user role (see `server/src/app.module.ts` on line 32)
+User roles can be defined and will be automatically added to the user doc (see `server/src/superlogin/signup-handler.ts` on line 30). By default users with the `admin` role will have access to all documents. Routes can be guarded by user role (see `server/src/user/user.module.ts` on line 23)
 
 ### maxperience.blog
 
