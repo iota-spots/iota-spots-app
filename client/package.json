@@ -1,8 +1,9 @@
 {
   "name": "cain-stack-template",
-  "version": "0.0.1",
-  "author": "Max Heichling",
+  "version": "1.0.0",
+  "author": "maxcodefaster",
   "homepage": "https://heichling.xyz/",
+  "description": "Ionic Angular for cross platform components and capacitor as wrapper. With PouchDB as local database.",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -62,6 +63,5 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "~3.7.5"
-  },
-  "description": "An Ionic project"
+  }
 }

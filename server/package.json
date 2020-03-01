@@ -1,8 +1,9 @@
 {
-  "name": "server",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "name": "cain-stack-server",
+  "version": "1.0.0",
+  "description": "NestJS as backend framework with Nano (CouchDB) for business logic and superlogin for authentication",
+  "author": "maxcodefaster",
+  "homepage": "https://heichling.xyz/",
   "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
