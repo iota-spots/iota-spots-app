@@ -1,0 +1,36 @@
+.avatar-button {
+  --padding-start: 0px;
+}
+
+.header-avatar {
+  width: 24px;
+  height: 24px;
+  margin-right: 2px;
+}
+
+ion-card-content {
+  --ion-background-color: #fff;
+  padding: 0 !important;
+}
+
+.mega-text {
+  width: 100%;
+  height: 200px;
+  background-image: linear-gradient(135deg, #04a997 0%, #6345b8 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+
+  p {
+    font-size: 2em;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 1px 1px #969595;
+  }
+}
+
+.message-content {
+  padding: 20px;
+}

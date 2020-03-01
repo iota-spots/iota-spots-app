@@ -23,6 +23,11 @@
                         "assets": [
                             {
                                 "glob": "**/*",
+                                "input": "./node_modules/leaflet/dist/images",
+                                "output": "leaflet/"
+                            },
+                            {
+                                "glob": "**/*",
                                 "input": "src/assets",
                                 "output": "assets"
                             },
@@ -34,6 +39,9 @@
                             "src/manifest.webmanifest"
                         ],
                         "styles": [
+                            {
+                                "input": "./node_modules/leaflet/dist/leaflet.css"
+                            },
                             {
                                 "input": "src/theme/variables.scss"
                             },

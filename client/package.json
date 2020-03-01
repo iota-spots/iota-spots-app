@@ -32,6 +32,7 @@
     "@ionic/storage": "^2.2.0",
     "core-js": "^2.6.11",
     "ionicons": "^5.0.0",
+    "leaflet": "^1.6.0",
     "pouchdb": "^7.2.1",
     "rxjs": "^6.5.4",
     "tslib": "^1.11.1",

@@ -6,6 +6,7 @@ import { superloginConfig } from './config/superlogin-config';
 import { SuperloginModule } from './superlogin/superlogin-module';
 import { signupHandler } from './superlogin/signup-handler';
 import { UserModule } from './user/user.module';
+import { SpotsController } from './spots/spots.controller';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { UserModule } from './user/user.module';
     SuperloginModule.forRoot(superloginConfig),
     UserModule,
   ],
-  controllers: [],
+  controllers: [SpotsController],
   providers: [],
 })
 

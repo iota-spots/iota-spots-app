@@ -28,6 +28,7 @@
     "@nestjs/platform-express": "^6.11.8",
     "couch-pwd": "github:zemirco/couch-pwd",
     "del": "^3.0.0",
+    "iota-payment": "0.0.29",
     "method-override": "^2.3.9",
     "nano": "^8.1.0",
     "reflect-metadata": "^0.1.13",

@@ -25,6 +25,15 @@ const routes: Routes = [
                         loadChildren: () => import('../tab-2/tab-2.module').then(m => m.Tab2PageModule)
                     }
                 ]
+            },
+            {
+                path: 'tab-3',
+                children: [
+                    {
+                        path: '',
+                        loadChildren: () => import('../tab-3/tab-3.module').then(m => m.Tab3PageModule)
+                    }
+                ]
             }
         ]
     },
